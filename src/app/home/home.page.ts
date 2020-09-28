@@ -70,6 +70,12 @@ export class HomePage implements OnInit {
 
   ngOnInit() {}
 
+  showContent(id: number) {
+    console.log(id);
+    //if (id > 10) return false;
+    return id > this.messageIndex;
+  }
+
   loadData(event) {
     setTimeout(() => {
       if (this.messageIndex >= this.messages.length) {
@@ -78,20 +84,13 @@ export class HomePage implements OnInit {
       }
 
       // This block prevents the ion-infinite-scroll animation from occuring.
-      event.target.disabled = true;
+      //event.target.disabled = true;
       this.loadMoreItems();
-      event.target.disabled = false;
 
+      //event.target.disabled = false;
       event.target.complete();
 
-      //But now we need to scroll down ourselves, which isn't optimal :-/
-      // I'm always trying to send the user down to the 4th array item just to proof how this looks
-      const lastEl = document.getElementById("4");
-      if (lastEl) {
-        this.content.scrollToPoint(0, 0, 0);
-      } else {
-        this.content.scrollToBottom();
-      }
+      setTimeout(() => (this.messageIndex += 10), 100);
     }, 900);
   }
 
@@ -102,7 +101,6 @@ export class HomePage implements OnInit {
     );
     value = value.sort((a: any, b: any) => (b.id > a.id ? 1 : -1));
     this.displayedMessages$.next(value);
-    this.messageIndex += 10;
 
     if (this.firstLoad) {
       this.scrollToBottom();

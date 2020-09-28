@@ -16,6 +16,6 @@
     style="height: 100px"
     [id]="message.id"
   >
-    {{message.content}}
+    <div [hidden]="showContent(message.id)">{{message.content}}</div>
   </ion-card>
 </ion-content>
