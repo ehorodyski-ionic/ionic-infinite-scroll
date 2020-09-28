@@ -96,10 +96,11 @@ export class HomePage implements OnInit {
 
   loadMoreItems() {
     // Just a more succint way to handle ordering the array
-    let value = this.displayedMessages$.value.concat(
-      this.messages.slice(this.messageIndex, this.messageIndex + 10)
-    );
-    value = value.sort((a: any, b: any) => (b.id > a.id ? 1 : -1));
+    let value = this.messages
+      .slice(this.messageIndex, this.messageIndex + 10)
+      .reverse()
+      .concat(this.displayedMessages$.value);
+    //value = value.sort((a: any, b: any) => (b.id > a.id ? 1 : -1));
     this.displayedMessages$.next(value);
 
     if (this.firstLoad) {
